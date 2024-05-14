@@ -309,6 +309,8 @@ in {
     enable = !isWSL;
 
     settings = {
+      # TODO Update theme
+      
       env.TERM = "xterm-256color";
 
       font = {
@@ -467,7 +469,11 @@ in {
     maxCacheTtl = 31536000;
   };
 
+<<<<<<< HEAD
   #xresources.extraConfig = builtins.readFile ./Xresources;
+=======
+  xresources.extraConfig = builtins.readFile ./Xresources;
+>>>>>>> d3f2d02 (Initial commit for sugardev)
 
   # kingscott: Not really sure what this does. 
   # Make cursor not tiny on HiDPI screens

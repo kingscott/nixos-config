@@ -1,4 +1,4 @@
-{ inputs }:
+true inputs }:
 
 self: super:
 
