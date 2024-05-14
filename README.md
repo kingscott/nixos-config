@@ -1,5 +1,9 @@
 # NixOS System Configurations
 
+**Note:** This repository is a work in progress. I'm actively using it, hacking
+it and breaking it apart. This is a starting point for building a VM-based
+dev environment using NixOS. 
+
 This repository contains my NixOS system configurations. This repository
 isn't meant to be a turnkey solution to copying my setup or learning Nix,
 so I want to apologize to anyone trying to look for something "easy". I've
