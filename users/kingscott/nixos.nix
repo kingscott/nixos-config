@@ -18,9 +18,9 @@
     shell = pkgs.bash;
     hashedPassword = "$6$O1u6lRPF8kQYLGzN$roL91UMpozNG7iQT0NnoD8M1OysDoFJNcJ9sePsZ1nyYnCN3y4OyWjZHWT5VoHstjtOry3XntUCf/SvhW2gko/"; # helloworld
     # TODO Setup
-    #openssh.authorizedKeys.keys = [
-    #  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbTIKIPtrymhvtTvqbU07/e7gyFJqNS4S0xlfrZLOaY mitchellh"
-    #];
+    openssh.authorizedKeys.keys = [
+	  "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILVW/T/13azD83RuYa2OPJgpwTzEMy3DfAfyijotejAz scott.king@sugarcrm.com"
+    ];
   };
 
   nixpkgs.overlays = import ../../lib/overlays.nix ++ [

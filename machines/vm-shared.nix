@@ -136,7 +136,7 @@ in {
     # For hypervisors that support auto-resizing, this script forces it.
     # I've noticed not everyone listens to the udev events so this is a hack.
     (writeShellScriptBin "xrandr-auto" ''
-      xrandr --output Virtual-1 --auto
+      xrandr --output Virtual-1 --mode "3840x2160"
     '')
   ] ++ lib.optionals (currentSystemName == "vm-aarch64") [
     # This is needed for the vmware user tools clipboard to work.

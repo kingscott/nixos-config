@@ -1,99 +1,93 @@
 { sources }:
 ''
-"--------------------------------------------------------------------
-" Fix vim paths so we load the vim-misc directory
-let g:vim_home_path = "~/.vim"
-
-" This works on NixOS 21.05
-let vim_misc_path = split(&packpath, ",")[0] . "/pack/home-manager/start/vim-misc/vimrc.vim"
-if filereadable(vim_misc_path)
-  execute "source " . vim_misc_path
-endif
-
-" This works on NixOS 21.11
-let vim_misc_path = split(&packpath, ",")[0] . "/pack/home-manager/start/vimplugin-vim-misc/vimrc.vim"
-if filereadable(vim_misc_path)
-  execute "source " . vim_misc_path
-endif
-
-" This works on NixOS 22.11
-let vim_misc_path = split(&packpath, ",")[0] . "/pack/myNeovimPackages/start/vimplugin-vim-misc/vimrc.vim"
-if filereadable(vim_misc_path)
-  execute "source " . vim_misc_path
-endif
+colorscheme rose-pine
 
 lua <<EOF
 ---------------------------------------------------------------------
--- Add our custom treesitter parsers
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-
-parser_config.proto = {
-  install_info = {
-    url = "${sources.tree-sitter-proto}", -- local path or git repo
-    files = {"src/parser.c"}
-  },
-  filetype = "proto", -- if filetype does not agrees with parser name
-}
+-- Remap keys for less keystrokes
+vim.g.mapleader = " "
+vim.keymap.set("n", ";", ":")
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 ---------------------------------------------------------------------
--- Add our treesitter textobjects
-require'nvim-treesitter.configs'.setup {
-  textobjects = {
-    select = {
-      enable = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-      },
-    },
-
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer",
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer",
-      },
-    },
-  },
-}
-
-require("conform").setup({
-  formatters_by_ft = {
-    cpp = { "clang_format" },
-  },
-
-  format_on_save = {
-    lsp_fallback = true,
-  },
-})
+-- Standard formatting
+vim.opt.guicursor = ""
+vim.opt.nu = true
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = true
+vim.opt.wrap = false
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
 
 ---------------------------------------------------------------------
--- Cinnamon
+-- Fugitive formatting
+vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+vim.keymap.set("n", "<leader>gb", function ()
+	vim.cmd.Git('blame')
+end)
 
--- require('cinnamon').setup()
--- require('cinnamon').setup {
---  extra_keymaps = true,
---  override_keymaps = true,
---  scroll_limit = -1,
---}
+---------------------------------------------------------------------
+-- Gitsigns config
+require('gitsigns').setup()
+vim.keymap.set("n", "<leader>gp", function()
+	vim.cmd.Gitsigns("preview_hunk")
+end)
+vim.keymap.set("n", "<leader>rh", function() 
+	vim.cmd.Gitsigns("reset_hunk")
+end)
+vim.keymap.set("n", "<leader>glb", function() 
+	vim.cmd.Gitsigns("toggle_current_line_blame")
+end)
 
-vim.opt.termsync = false
+---------------------------------------------------------------------
+-- Harpoon config
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+
+vim.keymap.set("n", "<leader>a", mark.add_file)
+vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
+
+vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
+vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)  
+vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)  
+vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)  
+
+---------------------------------------------------------------------
+-- Add our custom treesitter config
+
+---------------------------------------------------------------------
+-- add telescope config
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
+vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+vim.keymap.set('n', '<leader>ps', function()
+	builtin.grep_string({ search = vim.fn.input("Grep > ") });
+end)
+
+---------------------------------------------------------------------
+-- add undotree config
+vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+
+
+---------------------------------------------------------------------
+-- Alphavim config
+
+local alpha = require("alpha")
+local dashboard = require("alpha.themes.dashboard")
+
+-- Set the kingscott dragon of flames
+-- TODO
+
+-- Send config to alpha
+alpha.setup(dashboard.opts)
+
+vim.cmd([[
+    autocmd FileType alpha setlocal nofoldenable
+]])
+
 
 EOF
 ''

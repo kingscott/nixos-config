@@ -48,7 +48,10 @@ in {
     pkgs.gh
     pkgs.htop
     pkgs.jq
+	# Needed to add to get login working
+	pkgs.plymouth
     pkgs.ripgrep
+	pkgs.tmuxifier
     pkgs.tree
     pkgs.watch
 
@@ -57,9 +60,6 @@ in {
 
     # Node is required for Copilot.vim
     pkgs.nodejs
-
-	# Needed to add to get login working
-	pkgs.plymouth
   ] ++ (lib.optionals isDarwin [
 	# TODO REMOVE
     # This is automatically setup on Linux
@@ -90,6 +90,7 @@ in {
 
   home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
+  home.file.".tmux-layouts".source = ./tmux-layouts;
 
   xdg.configFile = {
     "i3/config".text = builtins.readFile ./i3;
@@ -127,6 +128,7 @@ in {
       gp = "git push";
       gs = "git status";
       gt = "git tag";
+	  tmr = "tmuxifier $1";
     };
   };
 
@@ -189,8 +191,7 @@ in {
     userName = "Scott King";
     userEmail = "scott.king@sugarcrm.com";
     signing = {
-      # TODO SETUP 
-      key = "523D5DC389D273BC";
+      key = "24B09299299348FB";
       signByDefault = true;
     };
     aliases = {
@@ -220,40 +221,18 @@ in {
     enable = true;
 
     plugins = with pkgs; [
+	  vimPlugins.alpha-nvim
+	  vimPlugins.gitsigns-nvim
       vimPlugins.harpoon
+	  #vimPlugins.nvim-treesitter
+	  vimPlugins.plenary-nvim
       vimPlugins.rose-pine
+	  vimPlugins.telescope-nvim
+	  vimPlugins.undotree
+	  vimPlugins.vim-fugitive
     ];
-
-    extraConfig = "colorscheme rose-pine";
-
-    extraLuaConfig = ''
-      vim.g.mapleader = " "
-      vim.keymap.set("n", ";", ":")
-      vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
-      vim.opt.guicursor = ""
-      vim.opt.nu = true
-      vim.opt.tabstop = 4
-      vim.opt.softtabstop = 4
-      vim.opt.shiftwidth = 4
-      vim.opt.smartindent = true
-      vim.opt.wrap = false
-      vim.opt.swapfile = false
-      vim.opt.backup = false
-      vim.opt.writebackup = false
-
-      -- Harpoon config
-      local mark = require("harpoon.mark")
-      local ui = require("harpoon.ui")
-
-      vim.keymap.set("n", "<leader>a", mark.add_file)
-      vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu)
-
-      vim.keymap.set("n", "<C-h>", function() ui.nav_file(1) end)
-      vim.keymap.set("n", "<C-t>", function() ui.nav_file(2) end)  
-      vim.keymap.set("n", "<C-n>", function() ui.nav_file(3) end)  
-      vim.keymap.set("n", "<C-s>", function() ui.nav_file(4) end)  
-    '';
+	
+    extraConfig = (import ./vim-config.nix) { inherit sources; };
   };
 
   programs.tmux = {
@@ -339,8 +318,6 @@ in {
     enable = !isWSL;
 
     settings = {
-      # TODO Update theme
-      
       env.TERM = "xterm-256color";
 
       font = {
@@ -349,9 +326,9 @@ in {
           style = "Retina";
         };
         bold = { 
-          style = "bold";
+          style = "Bold";
         };
-        size = 12;
+        size = 16;
       };
 
       colors = {
