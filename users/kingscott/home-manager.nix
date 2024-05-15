@@ -15,17 +15,17 @@ let
     cat "$1" | col -bx | bat --language man --style plain
   ''));
 
-  tmux-rose-pine = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux-rose-pine";
-      version = "unstable-...";
-      src = pkgs.fetchFromGitHub { 
-        owner = "rose-pine";
-        repo = "tmux";
-        rev = "23233037e48ea5f124b6186f8d232fda03326448";
-        sha256 = "sha256-0ccJVQIIOpHdr3xMIBC1wbgsARCNpmN+xMYVO6eu/SI=";
-      };
-    };
+#  tmux-rose-pine = pkgs.tmuxPlugins.mkTmuxPlugin
+#    {
+#      pluginName = "tmux-rose-pine";
+#      version = "unstable-...";
+#      src = pkgs.fetchFromGitHub { 
+#        owner = "rose-pine";
+#        repo = "tmux";
+#        rev = "23233037e48ea5f124b6186f8d232fda03326448";
+#        sha256 = "sha256-0ccJVQIIOpHdr3xMIBC1wbgsARCNpmN+xMYVO6eu/SI=";
+#      };
+#    };
 in {
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
@@ -203,7 +203,7 @@ in {
       color.ui = true;
       core.askPass = ""; # needs to be empty to use terminal for ask pass
       credential.helper = "store"; # want to make this more secure
-      github.user = "kingscott";
+      github.user = "kingscott-sugarcrm";
       push.default = "tracking";
       init.defaultBranch = "main";
     };
@@ -262,46 +262,76 @@ in {
     shortcut = "l";
     secureSocket = false;
 
-    plugins = with pkgs; [
-      {
-        plugin = tmux-rose-pine;
-        extraConfig = "";
-      }
-    ];
-
     extraConfig = ''
-      # Make reloading the config easy
-      unbind r
-      bind r source-file ~/.tmux.conf
+    # Make reloading the config easy
+    unbind r
+    bind r source-file ~/.config/tmux/tmux.conf
 
-      # Make sure TMUX doesn't hijack our nvim colours (sync colours between both systems)
-      set -g default-terminal "xterm-256color"
-      set-option -ga terminal-overrides ",xterm-256color:Tc"
+    # Make sure TMUX doesn't hijack our nvim colours (sync colours between both systems)
+    set -g default-terminal "xterm-256color"
+    set-option -ga terminal-overrides ",xterm-256color:Tc"
 
-      # Make Ctrl+s the prefix key
-      set -g prefix C-s
+    # Make Ctrl+s the prefix key
+    set -g prefix C-s
 
-      # Allow panes to be resized with mouse
-      set -g mouse on
+    # Allow panes to be resized with mouse
+    set -g mouse on
 
-      # Move status to top
-      set -g status-position top
+    # Move status to top
+    set -g status-position top
 
-      # Create vim-like keybindings for moving around
-      bind-key h select-pane -L 
-      bind-key j select-pane -D 
-      bind-key k select-pane -U 
-      bind-key l select-pane -R 
+    # Create vim-like keybindings for moving around
+    bind-key h select-pane -L 
+    bind-key j select-pane -D 
+    bind-key k select-pane -U 
+    bind-key l select-pane -R 
 
-      # Mitchell H's configs for tmux 
-      set -g @dracula-show-battery false
-      set -g @dracula-show-network false
-      set -g @dracula-show-weather false
+    # Mitchell H's configs for tmux 
+    #set -g @dracula-show-battery false
+    #set -g @dracula-show-network false
+    #set -g @dracula-show-weather false
 
-      bind -n C-k send-keys "clear"\; send-keys "Enter"
+	# Scott King's theming for tmux
+	set -g @rose_pine_variant 'main' # Options are 'main', 'moon' or 'dawn'
+    set -g @rose_pine_host 'on' # Enables hostname in the status bar
+    set -g @rose_pine_date_time "" # It accepts the date UNIX command format (man date for info)
+    set -g @rose_pine_user 'on' # Turn on the username component in the statusbar
+    set -g @rose_pine_directory 'on' # Turn on the current folder component in the status bar
+    set -g @rose_pine_bar_bg_disable 'on' # Disables background color, for transparent terminal emulators
+    # If @rose_pine_bar_bg_disable is set to 'on', uses the provided value to set the background color
+    # It can be any of the on tmux (named colors, 256-color set, `default` or hex colors)
+    # See more on http://man.openbsd.org/OpenBSD-current/man1/tmux.1#STYLES
+    set -g @rose_pine_bar_bg_disabled_color_option 'default'
+    # set -g @rose_pine_only_windows 'on' # Leaves only the window module, for max focus and space
+    set -g @rose_pine_disable_active_window_menu "" # Disables the menu that shows the active window on the left
+    
+    set -g @rose_pine_default_window_behavior 'on' # Forces tmux default window list behaviour
+    set -g @rose_pine_show_current_program 'on' # Forces tmux to show the current running program as window name
+    set -g @rose_pine_show_pane_directory 'on' # Forces tmux to show the current directory as window name
+    # Previously set -g @rose_pine_window_tabs_enabled
+    
+    # Example values for these can be:
+    set -g @rose_pine_left_separator ' > ' # The strings to use as separators are 1-space padded
+    set -g @rose_pine_right_separator ' < ' # Accepts both normal chars & nerdfont icons
+    set -g @rose_pine_field_separator ' | ' # Again, 1-space padding, it updates with prefix + I
+    set -g @rose_pine_window_separator ' - ' # Replaces the default `:` between the window number and name
+    
+    # These are not padded
+    set -g @rose_pine_session_icon ' ' # Changes the default icon to the left of the session name
+    set -g @rose_pine_current_window_icon '' # Changes the default icon to the left of the active window name
+    set -g @rose_pine_folder_icon '' # Changes the default icon to the left of the current directory folder
+    set -g @rose_pine_username_icon '' # Changes the default icon to the right of the hostname
+    set -g @rose_pine_hostname_icon '󰒋' # Changes the default icon to the right of the hostname
+    set -g @rose_pine_date_time_icon '󰃰' # Changes the default icon to the right of the date module
+    set -g @rose_pine_window_status_separator "  " # Changes the default icon that appears between window names
 
-      run-shell ${sources.tmux-pain-control}/pain_control.tmux
-      run-shell ${sources.tmux-dracula}/dracula.tmux
+    bind -n C-k send-keys "clear"\; send-keys "Enter"
+
+    # TODO ReMOVE;
+    #run-shell ${sources.tmux-pain-control}/pain_control.tmux
+    #run-shell ${sources.tmux-dracula}/dracula.tmux
+
+	run-shell ${sources.tmux-rose-pine}/rose-pine.tmux
     '';
   };
 
@@ -321,7 +351,7 @@ in {
         bold = { 
           style = "bold";
         };
-        size = 16;
+        size = 12;
       };
 
       colors = {
@@ -469,11 +499,8 @@ in {
     maxCacheTtl = 31536000;
   };
 
-<<<<<<< HEAD
+  # TODO REMOVE
   #xresources.extraConfig = builtins.readFile ./Xresources;
-=======
-  xresources.extraConfig = builtins.readFile ./Xresources;
->>>>>>> d3f2d02 (Initial commit for sugardev)
 
   # kingscott: Not really sure what this does. 
   # Make cursor not tiny on HiDPI screens
