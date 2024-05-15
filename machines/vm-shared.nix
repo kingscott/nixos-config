@@ -127,6 +127,8 @@ in {
   environment.systemPackages = with pkgs; [
 	# TODO REMOVE
     #cachix
+	gcc
+	glibc
     gnumake
     killall
     niv
@@ -172,4 +174,9 @@ in {
 
   # Make sure we can use Yubikeys
   hardware.gpgSmartcards.enable = true;
-}
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+  ];}

@@ -14,18 +14,6 @@ let
     '' else ''
     cat "$1" | col -bx | bat --language man --style plain
   ''));
-
-#  tmux-rose-pine = pkgs.tmuxPlugins.mkTmuxPlugin
-#    {
-#      pluginName = "tmux-rose-pine";
-#      version = "unstable-...";
-#      src = pkgs.fetchFromGitHub { 
-#        owner = "rose-pine";
-#        repo = "tmux";
-#        rev = "23233037e48ea5f124b6186f8d232fda03326448";
-#        sha256 = "sha256-0ccJVQIIOpHdr3xMIBC1wbgsARCNpmN+xMYVO6eu/SI=";
-#      };
-#    };
 in {
   # Home-manager 22.11 requires this be set. We never set it so we have
   # to use the old state version.
@@ -42,15 +30,19 @@ in {
   # not a huge list.
   home.packages = [
     pkgs.asciinema
+	pkgs.bash
     pkgs.bat
+	pkgs.bazel_7
     pkgs.fd
     pkgs.fzf
     pkgs.gh
     pkgs.htop
+	pkgs.jetbrains.goland
     pkgs.jq
 	# Needed to add to get login working
 	pkgs.plymouth
     pkgs.ripgrep
+	pkgs.skaffold
 	pkgs.tmuxifier
     pkgs.tree
     pkgs.watch
@@ -116,7 +108,7 @@ in {
     enable = true;
     shellOptions = [];
     historyControl = [ "ignoredups" "ignorespace" ];
-    #initExtra = builtins.readFile ./bashrc;
+    initExtra = builtins.readFile ./bashrc;
 
     shellAliases = {
       ga = "git add";
@@ -146,44 +138,6 @@ in {
   #      exact = ["$HOME/.envrc"];
   #    };
   #  };
-  #};
-
-  # TODO REMOVE
-  #programs.fish = {
-  #  enable = true;
-  #  interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" ([
-  #    "source ${sources.theme-bobthefish}/functions/fish_prompt.fish"
-  #    "source ${sources.theme-bobthefish}/functions/fish_right_prompt.fish"
-  #    "source ${sources.theme-bobthefish}/functions/fish_title.fish"
-  #    (builtins.readFile ./config.fish)
-  #    "set -g SHELL ${pkgs.fish}/bin/fish"
-  #  ]));
-
-  #  shellAliases = {
-  #    ga = "git add";
-  #    gc = "git commit";
-  #    gco = "git checkout";
-  #    gcp = "git cherry-pick";
-  #    gdiff = "git diff";
-  #    gl = "git prettylog";
-  #    gp = "git push";
-  #    gs = "git status";
-  #    gt = "git tag";
-  #  } // (if isLinux then {
-  #    # Two decades of using a Mac has made this such a strong memory
-  #    # that I'm just going to keep it consistent.
-  #    pbcopy = "xclip";
-  #    pbpaste = "xclip -o";
-  #  } else {});
-
-  #  plugins = map (n: {
-  #    name = n;
-  #    src  = sources.${n};
-  #  }) [
-  #    "fish-fzf"
-  #    "fish-foreign-env"
-  #    "theme-bobthefish"
-  #  ];
   #};
 
   programs.git = {
@@ -265,10 +219,7 @@ in {
     bind-key k select-pane -U 
     bind-key l select-pane -R 
 
-    # Mitchell H's configs for tmux 
-    #set -g @dracula-show-battery false
-    #set -g @dracula-show-network false
-    #set -g @dracula-show-weather false
+	set -g set-clipboard on
 
 	# Scott King's theming for tmux
 	set -g @rose_pine_variant 'main' # Options are 'main', 'moon' or 'dawn'
@@ -305,10 +256,6 @@ in {
     set -g @rose_pine_window_status_separator "  " # Changes the default icon that appears between window names
 
     bind -n C-k send-keys "clear"\; send-keys "Enter"
-
-    # TODO ReMOVE;
-    #run-shell ${sources.tmux-pain-control}/pain_control.tmux
-    #run-shell ${sources.tmux-dracula}/dracula.tmux
 
 	run-shell ${sources.tmux-rose-pine}/rose-pine.tmux
     '';
@@ -391,12 +338,6 @@ in {
       #];
     };
   };
-
-  # TODO REMOVE
-  #programs.kitty = {
-  #  enable = !isWSL;
-  #  extraConfig = builtins.readFile ./kitty;
-  #};
 
   programs.i3status = {
     enable = isLinux && !isWSL;

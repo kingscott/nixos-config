@@ -179,18 +179,6 @@
         "url": "https://github.com/oh-my-fish/theme-bobthefish/archive/1eaed8c39951029fa7839859abd5518977a80f83.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "tmux-dracula": {
-        "branch": "master",
-        "description": "🧛🏻‍♂️ Dark theme for tmux",
-        "homepage": "https://draculatheme.com/tmux",
-        "owner": "dracula",
-        "repo": "tmux",
-        "rev": "d311e94d868b0d59a896a4c09b6f658b1059519f",
-        "sha256": "0i8vy40agd36vlgdn29idy26k06wn006kma8j1pnp3715jdiq1az",
-        "type": "tarball",
-        "url": "https://github.com/dracula/tmux/archive/d311e94d868b0d59a896a4c09b6f658b1059519f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "tmux-rose-pine": {
         "branch": "main",
         "description": "Soho vibes for tmux",
@@ -201,18 +189,6 @@
         "sha256": "sha256-0ccJVQIIOpHdr3xMIBC1wbgsARCNpmN+xMYVO6eu/SI=",
         "type": "tarball",
         "url": "https://github.com/rose-pine/tmux/archive/23233037e48ea5f124b6186f8d232fda03326448.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "tmux-pain-control": {
-        "branch": "master",
-        "description": "standard pane key-bindings for tmux",
-        "homepage": "",
-        "owner": "tmux-plugins",
-        "repo": "tmux-pain-control",
-        "rev": "2db63de3b08fc64831d833240749133cecb67d92",
-        "sha256": "0w7a6n4n86ysiqcqj12j2hg9r5fznvbp3dz8pzas9q1k3avlk0zk",
-        "type": "tarball",
-        "url": "https://github.com/tmux-plugins/tmux-pain-control/archive/2db63de3b08fc64831d833240749133cecb67d92.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tree-sitter-hcl": {
