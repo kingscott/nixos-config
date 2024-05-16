@@ -37,6 +37,7 @@ in {
     pkgs.gh
     pkgs.htop
     pkgs.jq
+	pkgs.pinentry-gnome
 	# Needed to add to get login working
 	pkgs.plymouth
     pkgs.ripgrep
@@ -119,6 +120,7 @@ in {
       gs = "git status";
       gt = "git tag";
 	  tmr = "tmuxifier $1";
+	  grb = "git rebase";
     };
   };
 
@@ -150,6 +152,8 @@ in {
       cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 -r git branch -d";
       prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       root = "rev-parse --show-toplevel";
+	  ci = "commit";
+	  ch = "checkout";
     };
     extraConfig = {
       branch.autosetuprebase = "always";
@@ -182,6 +186,9 @@ in {
 	  vimPlugins.telescope-nvim
 	  vimPlugins.undotree
 	  vimPlugins.vim-fugitive
+
+	  customVim.vim-copilot
+	  customVim.vim-devicons
     ];
 	
     extraConfig = (import ./vim-config.nix) { inherit sources; };
@@ -408,7 +415,7 @@ in {
 
   services.gpg-agent = {
     enable = isLinux;
-    pinentryFlavor = "tty";
+    pinentryFlavor = "gnome3";
 
     # cache the keys forever so we don't get asked for a password
     defaultCacheTtl = 31536000;
