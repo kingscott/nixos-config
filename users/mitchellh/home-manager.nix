@@ -40,6 +40,8 @@ in {
     pkgs.tree
     pkgs.watch
 
+	pkgs.bazel
+
     pkgs.gopls
     #pkgs.zigpkgs."0.12.0"
 

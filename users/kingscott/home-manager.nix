@@ -32,12 +32,10 @@ in {
     pkgs.asciinema
 	pkgs.bash
     pkgs.bat
-	pkgs.bazel_7
     pkgs.fd
     pkgs.fzf
     pkgs.gh
     pkgs.htop
-	pkgs.jetbrains.goland
     pkgs.jq
 	# Needed to add to get login working
 	pkgs.plymouth
@@ -47,9 +45,12 @@ in {
     pkgs.tree
     pkgs.watch
 
+	# Multiverse dependencies
+	pkgs.bazelisk
+	pkgs.go
     pkgs.gopls
-    #pkgs.zigpkgs."0.12.0"
 
+	
     # Node is required for Copilot.vim
     pkgs.nodejs
   ] ++ (lib.optionals isDarwin [
@@ -58,9 +59,6 @@ in {
     # pkgs.cachix
     # pkgs.tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [
-	# TODO REMOVE
-    # pkgs.chromium
-
     pkgs.firefox
     pkgs.rofi
     pkgs.valgrind

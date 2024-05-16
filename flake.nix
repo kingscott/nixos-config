@@ -24,6 +24,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+	nix-ld.url = "github:Mic92/nix-ld";
+	# this line assume that you also have nixpkgs as an input
+	nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+
 	# TODO REMOVE
     # I think technically you're not supposed to override the nixpkgs
     # used by neovim but recently I had failures if I didn't pin to my

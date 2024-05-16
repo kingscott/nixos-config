@@ -54,5 +54,7 @@ start_kiosk_api() {
 }
 
 # Allow multiverse tooling to be hooked up correctly
-#PATH=$PATH:/home/kingscott/multiverse/tools/bin
+PATH=$PATH:/home/kingscott/multiverse/tools/bin
 
+alias bazel="bazelisk"
+alias scloud="/home/kingscott/nixos-config/sugar/scloud"

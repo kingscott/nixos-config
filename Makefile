@@ -123,3 +123,13 @@ vm/switch:
 .PHONY: wsl
 wsl:
 	 nix build ".#nixosConfigurations.wsl.config.system.build.installer"
+
+# List generations for current nix profile 
+.PHONE: list-gen
+list-gen:
+	sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+
+# Delete generations 
+.PHONY: delete-gen
+delete-gen:
+	sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations $(GENS)
