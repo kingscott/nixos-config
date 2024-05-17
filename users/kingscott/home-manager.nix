@@ -30,32 +30,33 @@ in {
   # not a huge list.
   home.packages = [
     pkgs.asciinema
-	pkgs.bash
+	  pkgs.bash
     pkgs.bat
     pkgs.fd
     pkgs.fzf
     pkgs.gh
     pkgs.htop
     pkgs.jq
-	pkgs.pinentry-gnome
-	# Needed to add to get login working
-	pkgs.plymouth
+    pkgs.pinentry-gnome
     pkgs.ripgrep
-	pkgs.skaffold
-	pkgs.tmuxifier
+    pkgs.tmuxifier
     pkgs.tree
+    pkgs.unzip
     pkgs.watch
+    pkgs.zip
 
-	# Multiverse dependencies
-	pkgs.bazelisk
-	pkgs.go
+    # Needed to add to get login working
+    pkgs.plymouth
+    
+    # Multiverse dependencies
+    pkgs.bazelisk
+    pkgs.go
     pkgs.gopls
-
 	
     # Node is required for Copilot.vim
     pkgs.nodejs
   ] ++ (lib.optionals isDarwin [
-	# TODO REMOVE
+	  # TODO REMOVE
     # This is automatically setup on Linux
     # pkgs.cachix
     # pkgs.tailscale
@@ -63,7 +64,6 @@ in {
     pkgs.firefox
     pkgs.rofi
     pkgs.valgrind
-    #pkgs.zathura
   ]);
 
   #---------------------------------------------------------------------
@@ -119,8 +119,9 @@ in {
       gp = "git push";
       gs = "git status";
       gt = "git tag";
-	  tmr = "tmuxifier $1";
-	  grb = "git rebase";
+      grb = "git rebase";
+      tma = "tmux a";
+      tmr = "tmuxifier";
     };
   };
 
@@ -152,8 +153,8 @@ in {
       cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 -r git branch -d";
       prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
       root = "rev-parse --show-toplevel";
-	  ci = "commit";
-	  ch = "checkout";
+      ci = "commit";
+      ch = "checkout";
     };
     extraConfig = {
       branch.autosetuprebase = "always";
@@ -177,26 +178,26 @@ in {
     enable = true;
 
     plugins = with pkgs; [
-	  vimPlugins.alpha-nvim
-	  vimPlugins.cmp-nvim-lsp
-	  vimPlugins.gitsigns-nvim
+      vimPlugins.alpha-nvim
+      vimPlugins.cmp-nvim-lsp
+      vimPlugins.gitsigns-nvim
       vimPlugins.harpoon
-	  vimPlugins.lsp-zero-nvim
-	  vimPlugins.luasnip
-	  vimPlugins.mason-nvim
-	  vimPlugins.mason-lspconfig-nvim
-	  vimPlugins.nvim-cmp
-	  vimPlugins.nvim-lspconfig
-	  #vimPlugins.nvim-treesitter
-	  vimPlugins.plenary-nvim
+      vimPlugins.lsp-zero-nvim
+      vimPlugins.luasnip
+      vimPlugins.mason-nvim
+      vimPlugins.mason-lspconfig-nvim
+      vimPlugins.nvim-cmp
+      vimPlugins.nvim-lspconfig
+      #vimPlugins.nvim-treesitter
+      vimPlugins.plenary-nvim
       vimPlugins.rose-pine
-	  vimPlugins.telescope-nvim
-	  vimPlugins.undotree
-	  vimPlugins.vim-fugitive
+      vimPlugins.telescope-nvim
+      vimPlugins.undotree
+      vimPlugins.vim-fugitive
 
-	  customVim.nvim-treesitter
-	  customVim.vim-copilot
-	  customVim.vim-devicons
+      customVim.nvim-treesitter
+      customVim.vim-copilot
+      customVim.vim-devicons
     ];
 	
     extraConfig = (import ./vim-config.nix) { inherit sources; };
@@ -232,10 +233,10 @@ in {
     bind-key k select-pane -U 
     bind-key l select-pane -R 
 
-	set -g set-clipboard on
+    set -g set-clipboard on
 
-	# Scott King's theming for tmux
-	set -g @rose_pine_variant 'main' # Options are 'main', 'moon' or 'dawn'
+    # Scott King's theming for tmux
+    set -g @rose_pine_variant 'main' # Options are 'main', 'moon' or 'dawn'
     set -g @rose_pine_host 'on' # Enables hostname in the status bar
     set -g @rose_pine_date_time "" # It accepts the date UNIX command format (man date for info)
     set -g @rose_pine_user 'on' # Turn on the username component in the statusbar
@@ -247,18 +248,18 @@ in {
     set -g @rose_pine_bar_bg_disabled_color_option 'default'
     # set -g @rose_pine_only_windows 'on' # Leaves only the window module, for max focus and space
     set -g @rose_pine_disable_active_window_menu "" # Disables the menu that shows the active window on the left
-    
+
     set -g @rose_pine_default_window_behavior 'on' # Forces tmux default window list behaviour
     set -g @rose_pine_show_current_program 'on' # Forces tmux to show the current running program as window name
     set -g @rose_pine_show_pane_directory 'on' # Forces tmux to show the current directory as window name
     # Previously set -g @rose_pine_window_tabs_enabled
-    
+
     # Example values for these can be:
     set -g @rose_pine_left_separator ' > ' # The strings to use as separators are 1-space padded
     set -g @rose_pine_right_separator ' < ' # Accepts both normal chars & nerdfont icons
     set -g @rose_pine_field_separator ' | ' # Again, 1-space padding, it updates with prefix + I
     set -g @rose_pine_window_separator ' - ' # Replaces the default `:` between the window number and name
-    
+
     # These are not padded
     set -g @rose_pine_session_icon ' ' # Changes the default icon to the left of the session name
     set -g @rose_pine_current_window_icon '' # Changes the default icon to the left of the active window name
@@ -270,7 +271,7 @@ in {
 
     bind -n C-k send-keys "clear"\; send-keys "Enter"
 
-	run-shell ${sources.tmux-rose-pine}/rose-pine.tmux
+    run-shell ${sources.tmux-rose-pine}/rose-pine.tmux
     '';
   };
 
@@ -282,7 +283,7 @@ in {
 
       font = {
         normal = {
-          family = "FiraCode Nerd Font";
+          family = "FiraCode Nerd Font Mono";
           style = "Retina";
         };
         bold = { 

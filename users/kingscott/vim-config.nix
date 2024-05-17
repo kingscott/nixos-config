@@ -26,6 +26,10 @@ colorscheme rose-pine
 
 lua <<EOF
 ---------------------------------------------------------------------
+-- Append local parsers dir to nvim
+vim.opt.runtimepath:append("$HOME/.local/nvim/parsers")
+
+---------------------------------------------------------------------
 -- Remap keys for less keystrokes
 vim.g.mapleader = " "
 vim.keymap.set("n", ";", ":")
@@ -137,22 +141,22 @@ cmp.setup({
 
 ---------------------------------------------------------------------
 -- Add our custom treesitter config
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = { "javascript", "css", "go", "php", "rust", "c", "lua", "vim", "vimdoc", "query" },
+  ensure_installed = { "javascript", "css", "go", "php", "lua", "vim", "vimdoc", "query" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
+  auto_install = false,
 
   -- List of parsers to ignore installing (or "all")
   --  ignore_install = { "javascript" },
 
   ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
-  parser_install_dir = "~/.config/nvim/treesitter-parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+  parser_install_dir = "$HOME/.local/nvim/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
 
   highlight = {
     enable = true,
@@ -192,12 +196,23 @@ local dashboard = require("alpha.themes.dashboard")
 -- Send config to alpha
 alpha.setup(dashboard.opts)
 
-vim.opt.runtimepath:append("~/.config/nvim/treesitter-parsers")
-
 vim.cmd([[
     autocmd FileType alpha setlocal nofoldenable
 ]])
 
+---------------------------------------------------------------------
+-- File-specific indentation
+
+vim.cmd([[
+	autocmd FileType html setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType css setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType javascript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType typescript setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType go setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+	autocmd FileType rust setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+	autocmd FileType lua setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+	autocmd FileType nix setlocal expandtab tabstop=2 shiftwidth=2 softtabstop=2
+]])
 
 EOF
 ''

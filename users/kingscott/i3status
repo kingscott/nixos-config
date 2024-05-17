@@ -9,7 +9,6 @@ general {
 
 order += "disk /"
 order += "run_watch DHCP"
-# order += "run_watch VPN"
 order += "ethernet eth0"
 order += "load"
 order += "tztime local"

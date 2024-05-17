@@ -11,8 +11,8 @@ new_window "maple-syrup"
 split_h 30
 
 # Run commands.
-run_cmd "cd ~/Sugar/maple-syrup; nvim" 0
-run_cmd "cd ~/Sugar/maple-syrup" 1
+run_cmd "cd ~/maple-syrup; nvim" 0
+run_cmd "cd ~/maple-syrup" 1
 
 # Paste text
 #send_keys "top"    # paste into active pane
