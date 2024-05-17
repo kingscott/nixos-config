@@ -77,10 +77,10 @@
         "homepage": "",
         "owner": "neovim",
         "repo": "nvim-lspconfig",
-        "rev": "cee94b22adc96582d9136f85fb3b076feda8825c",
-        "sha256": "1gz5vwb0hdqaxi2xh9dl87rf1yc10xinh3w83vd02cr9h88n5qv0",
+        "rev": "a284b14b3a9c4851f900286cd7eb68e3a8f90b1c",
+        "sha256": "1l8qbka2ykjyr0m2qqndr64b5kxr3dkn04zkdklx9hc4s1jb5ids",
         "type": "tarball",
-        "url": "https://github.com/neovim/nvim-lspconfig/archive/cee94b22adc96582d9136f85fb3b076feda8825c.tar.gz",
+        "url": "https://github.com/neovim/nvim-lspconfig/archive/a284b14b3a9c4851f900286cd7eb68e3a8f90b1c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-magma": {
@@ -107,28 +107,16 @@
         "url": "https://github.com/nvim-lua/plenary.nvim/archive/08e301982b9a057110ede7a735dd1b5285eb341f.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nvim-telescope": {
-        "branch": "master",
-        "description": "Find, Filter, Preview, Pick. All lua, all the time.",
-        "homepage": "",
-        "owner": "nvim-telescope",
-        "repo": "telescope.nvim",
-        "rev": "52f500110bcf9190b44b4d8640162adc86772ec4",
-        "sha256": "0l3vd9xabwx40rqmmwzj1sgnn62z0gg174yl2gl7k2w935nj707z",
-        "type": "tarball",
-        "url": "https://github.com/nvim-telescope/telescope.nvim/archive/52f500110bcf9190b44b4d8640162adc86772ec4.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "nvim-treesitter": {
         "branch": "master",
         "description": "Nvim Treesitter configurations and abstraction layer",
         "homepage": "",
         "owner": "nvim-treesitter",
         "repo": "nvim-treesitter",
-        "rev": "8012b55eee65eba1d1ee4df0a186d30e72dcbe65",
-        "sha256": "1lwr83l5xn2mfka3pajfsh1cmxzdpysspmv2cab6ams9bn8w4jwf",
+        "rev": "19ac9e8b5c1e5eedd2ae7957243e25b32e269ea7",
+        "sha256": "1bgaw1wpr2fivgv6misi3j9c81h4733k85qzml00px4svd02jw6p",
         "type": "tarball",
-        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/8012b55eee65eba1d1ee4df0a186d30e72dcbe65.tar.gz",
+        "url": "https://github.com/nvim-treesitter/nvim-treesitter/archive/19ac9e8b5c1e5eedd2ae7957243e25b32e269ea7.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nvim-treesitter-playground": {

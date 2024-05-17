@@ -178,8 +178,15 @@ in {
 
     plugins = with pkgs; [
 	  vimPlugins.alpha-nvim
+	  vimPlugins.cmp-nvim-lsp
 	  vimPlugins.gitsigns-nvim
       vimPlugins.harpoon
+	  vimPlugins.lsp-zero-nvim
+	  vimPlugins.luasnip
+	  vimPlugins.mason-nvim
+	  vimPlugins.mason-lspconfig-nvim
+	  vimPlugins.nvim-cmp
+	  vimPlugins.nvim-lspconfig
 	  #vimPlugins.nvim-treesitter
 	  vimPlugins.plenary-nvim
       vimPlugins.rose-pine
@@ -187,6 +194,7 @@ in {
 	  vimPlugins.undotree
 	  vimPlugins.vim-fugitive
 
+	  customVim.nvim-treesitter
 	  customVim.vim-copilot
 	  customVim.vim-devicons
     ];
