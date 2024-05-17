@@ -44,7 +44,7 @@ in {
   networking.hostName = "dev";
 
   # Set your time zone.
-  time.timeZone = "America/Toronto";
+  time.timeZone = "Canada/Eastern";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -102,6 +102,10 @@ in {
     };
   };
 
+<<<<<<< HEAD
+=======
+  # TODO REMOVE: Don't use Tailscale.
+>>>>>>> origin/sugardev
   # Enable tailscale. We manually authenticate when we want with
   # "sudo tailscale up". If you don't use tailscale, you should comment
   # out or delete all of this.
@@ -116,15 +120,18 @@ in {
     fontDir.enable = true;
 
     packages = [
+      pkgs.fira-code-nerdfont
       pkgs.fira-code
-      pkgs.jetbrains-mono
     ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    cachix
+	# TODO REMOVE
+    #cachix
+	gcc
+	glibc
     gnumake
     killall
     niv
@@ -167,4 +174,19 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
+
+  # Make sure we can use Yubikeys
+  hardware.gpgSmartcards.enable = true;
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+	stdenv.cc.cc
+	glibc
+	gcc
+	gnumake
+	bazelisk
+	go
+  ];
 }

@@ -1,7 +1,7 @@
 # Connectivity info for Linux VM
 NIXADDR ?= unset
 NIXPORT ?= 22
-NIXUSER ?= mitchellh
+NIXUSER ?= kingscott
 
 # Get the path to this Makefile and directory
 MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
@@ -83,7 +83,7 @@ vm/bootstrap0:
 vm/bootstrap:
 	NIXUSER=root $(MAKE) vm/copy
 	NIXUSER=root $(MAKE) vm/switch
-#	$(MAKE) vm/secrets
+	$(MAKE) vm/secrets
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) $(NIXUSER)@$(NIXADDR) " \
 		sudo reboot; \
 	"
@@ -123,3 +123,13 @@ vm/switch:
 .PHONY: wsl
 wsl:
 	 nix build ".#nixosConfigurations.wsl.config.system.build.installer"
+
+# List generations for current nix profile 
+.PHONE: list-gen
+list-gen:
+	sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+
+# Delete generations 
+.PHONY: delete-gen
+delete-gen:
+	sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations $(GENS)
