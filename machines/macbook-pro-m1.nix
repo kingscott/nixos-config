@@ -12,13 +12,14 @@
       keep-derivations = true
     '';
 
+	# TODO REMOVE: I don't see myself setting this up yet.	
     # public binary cache that I use for all my derivations. You can keep
     # this, use your own, or toss it. Its typically safe to use a binary cache
     # since the data inside is checksummed.
-    settings = {
-      substituters = ["https://mitchellh-nixos-config.cachix.org"];
-      trusted-public-keys = ["mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ="];
-    };
+    #settings = {
+    #  substituters = ["https://mitchellh-nixos-config.cachix.org"];
+    #  trusted-public-keys = ["mitchellh-nixos-config.cachix.org-1:bjEbXJyLrL1HZZHBbO4QALnI5faYZppzkU4D2s0G8RQ="];
+    #};
   };
 
   # zsh is the default shell on Mac and we want to make sure that we're
@@ -32,17 +33,19 @@
     # End Nix
     '';
 
-  programs.fish.enable = true;
-  programs.fish.shellInit = ''
-    # Nix
-    if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
-      source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
-    end
-    # End Nix
-    '';
+  # TODO REMOVE: Don't see myself using fish.
+  #programs.fish.enable = true;
+  #programs.fish.shellInit = ''
+  #  # Nix
+  #  if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+  #    source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+  #  end
+  #  # End Nix
+  #  '';
 
-  environment.shells = with pkgs; [ bashInteractive zsh fish ];
-  environment.systemPackages = with pkgs; [
-    cachix
-  ];
+  environment.shells = with pkgs; [ bashInteractive zsh ];
+  # TODO REMOVE: Not using cachix.
+  #environment.systemPackages = with pkgs; [
+  #  cachix
+  #];
 }
