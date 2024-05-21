@@ -188,7 +188,6 @@ in {
       vimPlugins.mason-lspconfig-nvim
       vimPlugins.nvim-cmp
       vimPlugins.nvim-lspconfig
-      #vimPlugins.nvim-treesitter
       vimPlugins.plenary-nvim
       vimPlugins.rose-pine
       vimPlugins.telescope-nvim
