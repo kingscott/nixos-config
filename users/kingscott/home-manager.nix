@@ -144,9 +144,9 @@ in {
   programs.git = {
     enable = true;
     userName = "Scott King";
-    userEmail = "scott.king@sugarcrm.com";
+    userEmail = "me@kingscott.ca";
     signing = {
-      key = "24B09299299348FB";
+      key = "3E75A1063C31D6AE";
       signByDefault = true;
     };
     aliases = {
@@ -179,7 +179,10 @@ in {
 
     plugins = with pkgs; [
       vimPlugins.alpha-nvim
+      vimPlugins.cmp-buffer
+      vimPlugins.cmp-path
       vimPlugins.cmp-nvim-lsp
+      vimPlugins.friendly-snippets
       vimPlugins.gitsigns-nvim
       vimPlugins.harpoon
       vimPlugins.lsp-zero-nvim
