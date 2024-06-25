@@ -53,6 +53,9 @@ in {
     pkgs.go
     pkgs.gopls
 	
+    # Needed for Node.js
+    pkgs.python3
+
     # Node is required for Copilot.vim
     pkgs.nodejs
   ] ++ (lib.optionals isDarwin [
