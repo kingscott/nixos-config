@@ -36,7 +36,7 @@
     #  inputs.nixpkgs.follows = "nixpkgs-unstable";
     #};
 
-	# TODO REMOVE
+  	# TODO REMOVE
     # Other packages
     #zig.url = "github:mitchellh/zig-overlay";
 
@@ -45,9 +45,9 @@
     nvim-treesitter.flake = false;
     vim-copilot.url = "github:github/copilot.vim/v1.11.1";
     vim-copilot.flake = false;
-	nix-ld.url = "github:Mic92/nix-ld";
-	# this line assume that you also have nixpkgs as an input
-	nix-ld.inputs.nixpkgs.follows = "nixpkgs";
+    nix-ld.url = "github:Mic92/nix-ld";
+	  # this line assume that you also have nixpkgs as an input
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, darwin, ... }@inputs: let

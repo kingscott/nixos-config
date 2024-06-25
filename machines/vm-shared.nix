@@ -179,11 +179,11 @@ in {
   programs.nix-ld.libraries = with pkgs; [
     # Add any missing dynamic libraries for unpackaged programs
     # here, NOT in environment.systemPackages
-	stdenv.cc.cc
-	glibc
-	gcc
-	gnumake
-	bazelisk
-	go
+    stdenv.cc.cc
+    glibc
+    gcc
+    gnumake
+    bazelisk
+    go
   ];
 }

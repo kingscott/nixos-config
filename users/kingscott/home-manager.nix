@@ -155,6 +155,10 @@ in {
       root = "rev-parse --show-toplevel";
       ci = "commit";
       ch = "checkout";
+      df = "diff";
+      rb = "rebase";
+      st = "status";
+      pl = "prettylog";
     };
     extraConfig = {
       branch.autosetuprebase = "always";
@@ -291,7 +295,7 @@ in {
         bold = { 
           style = "Bold";
         };
-        size = 16;
+        size = 22;
       };
 
       colors = {
