@@ -27,6 +27,9 @@ in {
     #};
   };
 
+  # Auto optimize the nix store on build
+  nix.settings.auto-optimise-store = true;
+
   nixpkgs.config.permittedInsecurePackages = [
     # Needed for k2pdfopt 2.53.
     "mupdf-1.17.0"
