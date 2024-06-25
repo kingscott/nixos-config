@@ -168,8 +168,8 @@ in {
       color.ui = true;
       core.askPass = ""; # needs to be empty to use terminal for ask pass
       credential.helper = "store"; # want to make this more secure
-      github.user = "kingscott-sugarcrm";
-      push.default = "tracking";
+      github.user = "kingscott";
+      push.default = "current";
       init.defaultBranch = "main";
     };
   };
